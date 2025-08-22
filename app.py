@@ -1,7 +1,16 @@
-import Personagem
+from Personagem import Personagem
 
-opcao = input('digite o estilo de rolagem desejada: ')
+def criar_personagem():
+    nome = input('digite o nome do personagem: ')
+    classe = input('digite a classe do personagem: ')
+    raca = input('digite a raça do personagem: ')
+    opcao = input('digite o estilo de rolagem desejada:  Classica, Aventureira ou Heroica: ').lower()
 
-personagem = Personagem.Personagem(opcao, nome="Lorien",classe="Mago",raca="Elfo")
+    return Personagem(opcao, nome, classe, raca)   
+
+personagem = criar_personagem()
 
 print(personagem)
+
+
+

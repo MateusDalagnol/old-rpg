@@ -1,7 +1,6 @@
 
 from rolagem import rolagem
 
-
 class Personagem:
     def __init__(self, opcao, nome, classe, raca):
         self.nome = nome

@@ -1,21 +1,20 @@
 import random
 
-
 def rolagem(self, opcao):
         if(opcao == 'classica'):
-            self.forca = rolagem_classica()
-            self.destreza = rolagem_classica()
-            self.constituicao = rolagem_classica()
-            self.inteligencia = rolagem_classica()
-            self.sabedoria = rolagem_classica()
-            self.carisma = rolagem_classica()
+            self.forca = rolagem()
+            self.destreza = rolagem()
+            self.constituicao = rolagem()
+            self.inteligencia = rolagem()
+            self.sabedoria = rolagem()
+            self.carisma = rolagem()
             
         elif(opcao == 'aventureira'):
             atributos_escolhidos = []
             
             for i in range(6):
                 
-                valor_do_atributo = rolagem_aventureiro()
+                valor_do_atributo = rolagem()
                 print(f'\nValor obtido = {valor_do_atributo}\n')
                 
                 while True:
@@ -81,15 +80,7 @@ def rolagem(self, opcao):
                     
                     break
 
-def rolagem_classica():
-    valor_atributo = 0
-        
-    for i in range(3):
-        valor_atributo += random.randint(1,6)
-            
-    return valor_atributo
-
-def rolagem_aventureiro():
+def rolagem():
     valor_atributo = 0
         
     for i in range(3):

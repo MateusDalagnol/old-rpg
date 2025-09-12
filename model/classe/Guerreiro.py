@@ -1,4 +1,4 @@
-from Classe.Classe import Classe
+from model.classe.Classe import Classe
 
 class Guerreiro(Classe):
     def __init__(self):

@@ -1,4 +1,4 @@
-from rolagem import rolar_dados
+from model.rolagem import rolar_dados
 
 class Personagem:
     def __init__(self, opcao, nome, classe, raca):

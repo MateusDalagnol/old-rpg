@@ -1,11 +1,11 @@
-from Personagem import *
-from Classe.Guerreiro import Guerreiro
-from Classe.Paladino import Paladino
-from Classe.Ladrao import Ladrao
-from Raca.Anao import Anao
-from Raca.Elfo import Elfo
-from Raca.Halfling import Halfling
-from Raca.Humano import Humano
+from model.Personagem import Personagem
+from model.classe.Guerreiro import Guerreiro
+from model.classe.Paladino import Paladino
+from model.classe.Ladrao import Ladrao
+from model.raca.Anao import Anao
+from model.raca.Elfo import Elfo
+from model.raca.Halfling import Halfling
+from model.raca.Humano import Humano
 
 def escolher_classe():
     try:

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Old-rpg</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Personagem Criado!</h1>
+
+        <div class="section">
+            <h2>Informações Básicas</h2>
+            <p><strong>Nome:</strong> {{ nome }}</p>
+            <p><strong>Nível:</strong> {{ nivel }}</p>
+            <p><strong>Estilo:</strong> {{ estilo }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Classe: {{ classe_nome }}</h2>
+            <p><strong>Habilidades:</strong> {{ habilidades_classe }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Raça: {{ raca_nome }}</h2>
+            <p><strong>Habilidades:</strong> {{ habilidades_raca }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Atributos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Atributo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Força</td><td>{{ forca }}</td></tr>
+                    <tr><td>Destreza</td><td>{{ destreza }}</td></tr>
+                    <tr><td>Constituição</td><td>{{ constituicao }}</td></tr>
+                    <tr><td>Inteligência</td><td>{{ inteligencia }}</td></tr>
+                    <tr><td>Sabedoria</td><td>{{ sabedoria }}</td></tr>
+                    <tr><td>Carisma</td><td>{{ carisma }}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a class="voltar" href="/">Voltar</a>
+    </div>
+</body>
+</html>

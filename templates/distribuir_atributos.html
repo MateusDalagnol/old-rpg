@@ -2,71 +2,70 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Old-rpg</title>
+    <title>Distribua seus Pontos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Distribua seus pontos</h1>
 
-        <form method="post" action="/distribuir_atributos" id="distribuicao-form">
+        <form method="post" action="/distribuir_atributos">
             <input type="hidden" name="nome" value="{{ nome }}">
             <input type="hidden" name="classe" value="{{ classe }}">
             <input type="hidden" name="raca" value="{{ raca }}">
             <input type="hidden" name="estilo" value="{{ estilo }}">
 
-            <h3>Valores disponíveis: <span id="valores-disponiveis">{{ valores|join(' | ') }}</span></h3>
-            
+            <h3>Valores disponíveis: {{ valores|join(' | ') }}</h3>
+
             <div id="atributos-container">
                 {% for attr in ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'] %}
                     <label>{{ attr|capitalize }}:
-                        <select name="{{ attr }}" onchange="atualizarValores()">
+                        <select name="{{ attr }}" onchange="atualizarOpcoes()">
                             <option value="">-- Escolha um valor --</option>
                             {% for v in valores %}
                                 <option value="{{ v }}">{{ v }}</option>
                             {% endfor %}
                         </select>
-                    </label>
+                    </label><br>
                 {% endfor %}
             </div>
 
             <button type="submit">Criar Personagem</button>
         </form>
-        <p id="mensagem-erro" style="color:red; text-align:center; margin-top:20px;"></p>
     </div>
 
     <script>
-        const valoresIniciais = {{ valores|tojson }};
         const selects = document.querySelectorAll('select');
-        const mensagemErro = document.getElementById('mensagem-erro');
-        const form = document.getElementById('distribuicao-form');
+        const valoresIniciais = {{ valores|tojson }};
 
-        // Função para contar a frequência dos valores em um array de números
-        function contarValores(arr) {
-            return arr.reduce((acc, val) => {
-                acc[val] = (acc[val] || 0) + 1;
-                return acc;
-            }, {});
-        }
-
-        function atualizarValores() {
-            // Converte os valores selecionados de string para número
-            const valoresSelecionados = Array.from(selects).filter(s => s.value).map(s => parseInt(s.value));
-            
-            const contagemSelecionados = contarValores(valoresSelecionados);
-            const contagemIniciais = contarValores(valoresIniciais);
-
+        function atualizarOpcoes() {
+            // Conta a frequência de cada valor selecionado
+            const contagemSelecionados = {};
             selects.forEach(select => {
-                const valorAtual = select.value ? parseInt(select.value) : null;
+                if (select.value !== '') {
+                    contagemSelecionados[select.value] = (contagemSelecionados[select.value] || 0) + 1;
+                }
+            });
+
+            // Conta a frequência de cada valor na lista original
+            const contagemOriginais = {};
+            valoresIniciais.forEach(valor => {
+                contagemOriginais[valor] = (contagemOriginais[valor] || 0) + 1;
+            });
+
+            // Atualiza as opções de cada menu
+            selects.forEach(select => {
+                const valorAtual = select.value;
                 const opcoes = select.querySelectorAll('option');
+
                 opcoes.forEach(opcao => {
-                    const valorOpcao = parseInt(opcao.value);
-                    
-                    if (!isNaN(valorOpcao)) {
-                        const countNaOpcao = contagemSelecionados[valorOpcao] || 0;
-                        const countNaListaOriginal = contagemIniciais[valorOpcao] || 0;
-                        
-                        if (countNaOpcao >= countNaListaOriginal && valorOpcao !== valorAtual) {
+                    const valorOpcao = opcao.value;
+                    if (valorOpcao !== '') {
+                        const usado = contagemSelecionados[valorOpcao] || 0;
+                        const total = contagemOriginais[valorOpcao] || 0;
+
+                        // Desabilita a opção se ela já foi usada o número máximo de vezes e não é a opção atual
+                        if (usado >= total && valorOpcao !== valorAtual) {
                             opcao.disabled = true;
                         } else {
                             opcao.disabled = false;
@@ -74,43 +73,7 @@
                     }
                 });
             });
-            
-            mensagemErro.textContent = '';
-            const todosSelecionados = Array.from(selects).every(s => s.value !== '');
-            
-            if (todosSelecionados) {
-                if (valoresSelecionados.length !== valoresIniciais.length) {
-                    mensagemErro.textContent = "Erro: Um ou mais valores foram usados mais de uma vez.";
-                }
-            }
         }
-        
-        // Adiciona um validador final ao formulário antes de enviar
-        form.addEventListener('submit', function(event) {
-            const valoresSelecionados = Array.from(selects).filter(s => s.value).map(s => parseInt(s.value));
-            
-            if (valoresSelecionados.length !== valoresIniciais.length) {
-                event.preventDefault(); // Impede o envio do formulário
-                mensagemErro.textContent = "Erro: Por favor, selecione um valor único para cada atributo.";
-            } else {
-                // Validação final para garantir que todos os valores foram usados uma única vez
-                const contagemSelecionados = contarValores(valoresSelecionados);
-                const contagemIniciais = contarValores(valoresIniciais);
-                let validacaoOK = true;
-                
-                for (const valor in contagemIniciais) {
-                    if (contagemSelecionados[valor] !== contagemIniciais[valor]) {
-                        validacaoOK = false;
-                        break;
-                    }
-                }
-                
-                if (!validacaoOK) {
-                    event.preventDefault();
-                    mensagemErro.textContent = "Erro: Por favor, selecione um valor único para cada atributo.";
-                }
-            }
-        });
     </script>
 </body>
 </html>

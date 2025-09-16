@@ -9,4 +9,4 @@ class Ladrao(Classe):
         self.habilidades = {'Ataque furtivo': 1, 'Ouvir ruidos': 1, 'Talentos de ladrão': 1}#valor da habilidade indica o nivel necessario para poder usa-la
 
     def exibir_habilidades(self):
-        super().exibir_habilidades()
+        return super().exibir_habilidades()

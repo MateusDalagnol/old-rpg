@@ -7,7 +7,7 @@ from model.raca.Elfo import Elfo
 from model.raca.Halfling import Halfling
 from model.raca.Humano import Humano
 
-def criar_personagem(nome, classe_str, raca_str, estilo, valores):
+def criar_personagem(nome, classe_str, raca_str, valores):
     # Escolher classe
     if classe_str.lower() == "guerreiro":
         classe = Guerreiro()

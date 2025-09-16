@@ -6,8 +6,8 @@ def criar_personagem_controller(nome, classe_str, raca_str, estilo):
     if estilo.lower() == 'classica':
         # Cria o personagem e rola os dados
         valores = rolar_dados(estilo)
-        personagem = criar_personagem(nome, classe_str, raca_str, estilo, valores)
-        
+        personagem = criar_personagem(nome, classe_str, raca_str, valores)
+
         habilidades_classe = list(personagem.classe.habilidades.keys()) if isinstance(personagem.classe.habilidades, dict) else personagem.classe.habilidades
         habilidades_raca = personagem.raca.habilidades
 
@@ -39,9 +39,9 @@ def distribuir_atributos_controller():
     classe_str = request.form['classe']
     raca_str = request.form['raca']
     estilo = request.form['estilo']
-    
-    personagem = criar_personagem(nome, classe_str, raca_str, estilo, None)
-    
+
+    personagem = criar_personagem(nome, classe_str, raca_str, estilo)
+
     personagem.forca = int(request.form['forca'])
     personagem.destreza = int(request.form['destreza'])
     personagem.constituicao = int(request.form['constituicao'])

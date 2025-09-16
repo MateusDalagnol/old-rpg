@@ -2,13 +2,13 @@ import random
 
 def rolar_dados(opcao):
     valores_disponiveis = []
-    if(opcao == 'classica'):
+    if opcao == 'classica':
         for _ in range(6):
             valores_disponiveis.append(rolagem())
-    elif(opcao == 'aventureira'):
+    elif opcao == 'aventureira':
         for _ in range(6):
             valores_disponiveis.append(rolagem())
-    elif(opcao == 'heroica'):
+    elif opcao == 'heroica':
         for _ in range(6):
             valores_disponiveis.append(rolagem_heroica())
     return valores_disponiveis

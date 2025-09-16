@@ -46,7 +46,6 @@ def distribuir_atributos_controller():
     raca_str = request.form['raca']
     estilo = request.form['estilo']
 
-    # Passamos os atributos como uma lista, como a função criar_personagem espera.
     atributos_selecionados = [
         int(request.form['forca']),
         int(request.form['destreza']),
@@ -56,9 +55,6 @@ def distribuir_atributos_controller():
         int(request.form['carisma'])
     ]
 
-    # Corrigimos o fluxo:
-    # 1. Cria o personagem com base nos atributos selecionados.
     personagem = criar_personagem(nome, classe_str, raca_str, atributos_selecionados)
 
-    # 2. Chama a função auxiliar para renderizar a página final.
     return renderizar_personagem_final(personagem, estilo, classe_str, raca_str)
